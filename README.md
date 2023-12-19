@@ -9,7 +9,7 @@ To get started with the OpenAI Custom Voice Assistant, follow these steps:
 1. Clone the repository to your local machine:
 
     ```bash
-    git clone https://github.com/your-username/OpenAI-CustomVoiceAssistant.git
+    git clone https://github.com/Trent3759/OpenAI-CustomVoiceAssistant.git
     cd OpenAI-CustomVoiceAssistant
     ```
 
