@@ -6,7 +6,7 @@ from openai import OpenAI
 import config as cfg
 
 class ChatBot:
-    def __init__(self, voice):
+    def __init__(self, voice=None):
         self.client = OpenAI(api_key=cfg.OPENAI_API_KEY)
         self.r = sr.Recognizer()
         self.listening = False
