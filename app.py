@@ -6,10 +6,14 @@ from openai import OpenAI
 import config as cfg
 
 class ChatBot:
-    def __init__(self, voice="alloy"):
+    def __init__(self, voice):
         self.client = OpenAI(api_key=cfg.OPENAI_API_KEY)
         self.r = sr.Recognizer()
         self.listening = False
+        if voice: 
+            self.voice = voice
+        else:
+            self.voice = cfg.VOICE
         self.t = Timer(30.0, self.set_listening_true)
         self.messages = [
             {"role": "system", "content": "I am " + cfg.BOT_NAME.capitalize() + "."},
@@ -43,7 +47,7 @@ class ChatBot:
         )
         messages.append({"role": "system", "content": response.choices[0].message.content})
         safe_response = response.choices[0].message.content
-        self.generate_audio(safe_response, cfg.VOICE)
+        self.generate_audio(safe_response)
         return safe_response
 
     def play_audio(self, file_path):
@@ -56,10 +60,10 @@ class ChatBot:
         pygame.mixer.quit()
         pygame.quit()
 
-    def generate_audio(self, paragraph, voice="alloy"):
+    def generate_audio(self, paragraph):
         response = self.client.audio.speech.create(
             model="tts-1",
-            voice=voice,
+            voice=self.voice,
             input=paragraph,
         )
         root = os.path.dirname(os.path.realpath(__file__))
